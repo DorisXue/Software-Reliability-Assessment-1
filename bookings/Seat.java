@@ -10,19 +10,19 @@ public class Seat {
     private final char row;
     private final int number;
     
-    //@ ensures row >= 'A';
-    //@ ensures number >= 1;
+    //@ requires row >= MIN_ROW
+    //@ requires number >= MIN_NUMBER
+    //@ ensures row >= MIN_ROW
+    //@ ensures number >= MIN_NUMBER
     public Seat(char row, int number) {
         this.row = row;
         this.number = number;
     }
 
-    //@ ensures \result >= 'A';
     public final char getRow() {
         return row;
     }
 
-    //@ ensures \result >= 1;
     public final int getNumber() {
         return number;
     }
