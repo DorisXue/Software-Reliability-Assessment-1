@@ -100,10 +100,14 @@ public class SeatReservationManager {
         return number - Seat.MIN_NUMBER;
     }
     
+    //@ requires index >= 0;
+    //@ ensures \result >= 'A';
     private static char indexToRow(int index) {
         return (char)(Seat.MIN_ROW + index);
     }
 
+    //@ requires index >= 0;
+    //@ ensures \result >= 1;
     private static int indexToNumber(int index) {
         return index + Seat.MIN_NUMBER;
     }

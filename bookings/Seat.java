@@ -11,7 +11,7 @@ public class Seat {
     private final int number;
     
     //@ ensures row >= 'A';
-    //@ ensures number >= 0;
+    //@ ensures number >= 1;
     public Seat(char row, int number) {
         this.row = row;
         this.number = number;
