@@ -22,7 +22,7 @@ public class Seat {
         return row;
     }
 
-    //@ ensures \result >= 0;
+    //@ ensures \result >= 1;
     public final int getNumber() {
         return number;
     }

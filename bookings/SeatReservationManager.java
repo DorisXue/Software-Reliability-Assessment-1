@@ -19,6 +19,7 @@ public class SeatReservationManager {
                                [numberToIndex(s.getNumber())] != null;
     }
 
+    //@ requires s != null;
     public void reserve(Seat s, Customer c) 
             throws ReservationException {
         if(isReserved(s)) {
@@ -28,6 +29,7 @@ public class SeatReservationManager {
                         [numberToIndex(s.getNumber())] = c;
     }
     
+    //@ requires s != null;
     public void unreserve(Seat s)
             throws ReservationException {
         if(!isReserved(s)) {
