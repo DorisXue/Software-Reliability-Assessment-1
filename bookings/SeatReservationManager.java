@@ -14,12 +14,14 @@ public class SeatReservationManager {
     }
 
     //@ requires s != null;
+    //@ ensures s != null ==> (s.getRow() >= Seat.MIN_ROW && s.getNumber() >= Seat.MIN_NUMBER);
     public boolean isReserved(Seat s) {
         return seatReservations[rowToIndex(s.getRow())]
                                [numberToIndex(s.getNumber())] != null;
     }
 
     //@ requires s != null;
+    //@ ensures s != null ==> (s.getRow() >= Seat.MIN_ROW && s.getNumber() >= Seat.MIN_NUMBER);
     public void reserve(Seat s, Customer c) 
             throws ReservationException {
         if(isReserved(s)) {
@@ -88,14 +90,14 @@ public class SeatReservationManager {
         return result;
     }
 
-    //@ requires row >= Seat.MIN_ROW;
-    //@ ensures \result >= 0;
+    // requires row >= Seat.MIN_ROW
+    //@ ensures row >= Seat.MIN_ROW ==> \result >= 0;
     private static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
 
-    //@ requires number >= Seat.MIN_NUMBER;
-    //@ ensures \result >= 0;
+    // requires number >= Seat.MIN_NUMBER;
+    //@ ensures number >= Seat.MIN_NUMBER ==> \result >= 0;
     private static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }

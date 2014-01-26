@@ -19,10 +19,14 @@ public class Seat {
         this.number = number;
     }
 
+    // requires row >= MIN_ROW;
+    // ensures \result >= MIN_ROW;
+    //@ ensures (row >= MIN_ROW && row <= MAX_ROW) ==> (\result >= MIN_ROW && \result <= MAX_ROW)
     public final char getRow() {
         return row;
     }
 
+    //@ ensures (number >= MIN_NUMBER && number <= MAX_NUMBER) ==> (\result >= MIN_NUMBER && \result <= MAX_NUMBER)
     public final int getNumber() {
         return number;
     }
