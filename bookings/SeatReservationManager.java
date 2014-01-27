@@ -90,28 +90,26 @@ public class SeatReservationManager {
         return result;
     }
 
-    // requires row >= Seat.MIN_ROW && row <= Seat.MAX_ROW;
-    // ensures row >= Seat.MIN_ROW ==> \result >= 0;
-    // ensures \result >= -1;
-    private /*@ helper @*/ static int rowToIndex(char row) {
+    //@ requires row >= Seat.MIN_ROW && row <= Seat.MAX_ROW;
+    //@ ensures \result >= 0;
+    private static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
 
-    // requires number >= Seat.MIN_NUMBER;
-    // ensures number >= Seat.MIN_NUMBER ==> \result >= 0;
-    // ensures \result >= 0;
-    private /*@ helper @*/ static int numberToIndex(int number) {
+    //@ requires number >= Seat.MIN_NUMBER && number <= Seat.MAX_NUMBER;
+    //@ ensures \result >= 0;
+    private static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }
     
-    // requires index >= 0 && index <= (Seat.MAX_ROW-Seat.MIN_ROW);
-    // ensures \result >= Seat.MIN_ROW;
+    //@ requires index >= 0 && index <= (Seat.MAX_ROW-Seat.MIN_ROW);
+    //@ ensures \result >= Seat.MIN_ROW && \result <= Seat.MAX_ROW;
     private static char indexToRow(int index) {
         return (char)(Seat.MIN_ROW + index);
     }
 
-    // requires index >= 0 && index <= (Seat.MAX_ROW-Seat.MIN_ROW);
-    // ensures \result >= Seat.MIN_NUMBER;
+    //@ requires index >= 0 && index <= (Seat.MAX_ROW-Seat.MIN_ROW);
+    //@ ensures \result >= Seat.MIN_NUMBER && \result <= Seat.MAX_NUMBER;
     private static int indexToNumber(int index) {
         return index + Seat.MIN_NUMBER;
     }
