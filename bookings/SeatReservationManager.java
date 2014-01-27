@@ -90,15 +90,17 @@ public class SeatReservationManager {
         return result;
     }
 
-    // requires row >= Seat.MIN_ROW
+    // requires row >= Seat.MIN_ROW && row <= Seat.MAX_ROW;
     // ensures row >= Seat.MIN_ROW ==> \result >= 0;
-    private static int rowToIndex(char row) {
+    // ensures \result >= -1;
+    private /*@ helper @*/ static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
 
     // requires number >= Seat.MIN_NUMBER;
     // ensures number >= Seat.MIN_NUMBER ==> \result >= 0;
-    private static int numberToIndex(int number) {
+    // ensures \result >= 0;
+    private /*@ helper @*/ static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }
     
