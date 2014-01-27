@@ -3,7 +3,8 @@ package bookings;
 public class SeatReservationManager {
 
 	/*@ invariant seatReservations != null;
-	 invariant (\forall int x; 0<=x&& x<seatReservations.length ==> seatReservations[x]!= null);
+	    invariant (\forall int x; 0<=x && x<seatReservations.length ==> seatReservations[x]!= null);
+	    invariant (\forall int x; 0<=x && x<seatReservations.length ==> \elemtype(\typeof(seatReservations[x])) == \type(Customer));
 	@*/
 	
     private final Customer[][] seatReservations;
@@ -16,14 +17,13 @@ public class SeatReservationManager {
     }
 
     //@ requires s != null;
+    //@ modifies \nothing;
     public boolean isReserved(Seat s) {
         return seatReservations[rowToIndex(s.getRow())]
                                [numberToIndex(s.getNumber())] != null;
     }
 
     //@ requires s != null && c != null;
-    // requires (\forall int x; 0<=x&& x<seatReservations.length ==> \typeof(seatReservations[x]) == \typeof(c));
-    //@ requires \typeof(seatReservations) == \type(Customer) && \typeof(c) == \type(Customer);
     public void reserve(Seat s, Customer c) 
             throws ReservationException {
         if(isReserved(s)) {
@@ -63,10 +63,7 @@ public class SeatReservationManager {
     /*@ ghost String toStringResult; in privateState;
         represents theString <- toStringResult;
     @*/
- 
-    // requires seatReservations.length>=1;
     public String toString() {
-
         String result = " ";
         
         for(int numberIndex = 0; numberIndex < seatReservations[0].length; 
@@ -96,24 +93,28 @@ public class SeatReservationManager {
 
     //@ requires row >= Seat.MIN_ROW && row <= Seat.MAX_ROW;
     //@ ensures \result >= 0 && \result <= (Seat.MAX_ROW-Seat.MIN_ROW);
+  //@ modifies \nothing;
     private static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
 
     //@ requires number >= Seat.MIN_NUMBER && number <= Seat.MAX_NUMBER;
     //@ ensures \result >= 0 && \result <= (Seat.MAX_NUMBER-Seat.MIN_NUMBER);
+  //@ modifies \nothing;
     private static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }
     
     //@ requires index >= 0 && index <= (Seat.MAX_ROW-Seat.MIN_ROW);
     //@ ensures \result >= Seat.MIN_ROW && \result <= Seat.MAX_ROW;
+    //@ modifies \nothing;
     private static char indexToRow(int index) {
         return (char)(Seat.MIN_ROW + index);
     }
 
     //@ requires index >= 0 && index <= (Seat.MAX_NUMBER-Seat.MIN_NUMBER);
     //@ ensures \result >= Seat.MIN_NUMBER && \result <= Seat.MAX_NUMBER;
+    //@ modifies \nothing;
     private static int indexToNumber(int index) {
         return index + Seat.MIN_NUMBER;
     }
