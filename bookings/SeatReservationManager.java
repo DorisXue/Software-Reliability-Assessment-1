@@ -5,19 +5,20 @@ public class SeatReservationManager {
 	/*@ invariant seatReservations != null;
 	    invariant (\forall int x; 0<=x && x<seatReservations.length ==> seatReservations[x]!= null);
 	    invariant (\forall int x; 0<=x && x<seatReservations.length ==> \elemtype(\typeof(seatReservations[x])) == \type(Customer));
+	    invariant seatReservations.length == (Seat.MAX_ROW-Seat.MIN_ROW)+1;
+        invariant (\forall int x; 0<=x && x<seatReservations.length ==> seatReservations[x].length == Seat.MAX_NUMBER);
 	@*/
 	
     private final Customer[][] seatReservations;
     
-    // ensures seatReservations.length == (Seat.MAX_ROW-Seat.MIN_ROW)+1;
-    // ensures (\forall int x; 0<=x&& x<seatReservations.length ==> seatReservations[x].length == Seat.MAX_NUMBER)
-    public SeatReservationManager() {
+    public /*@ helper @*/ SeatReservationManager() {
         seatReservations = new Customer[rowToIndex(Seat.MAX_ROW) + 1]
                                        [numberToIndex(Seat.MAX_NUMBER) + 1];
     }
 
-    //@ requires s != null;
-    //@ modifies \nothing;
+    /*@ requires s != null;
+        modifies \nothing;
+    @*/
     public boolean isReserved(Seat s) {
         return seatReservations[rowToIndex(s.getRow())]
                                [numberToIndex(s.getNumber())] != null;
@@ -91,30 +92,34 @@ public class SeatReservationManager {
         return result;
     }
 
-    //@ requires row >= Seat.MIN_ROW && row <= Seat.MAX_ROW;
-    //@ ensures \result >= 0 && \result <= (Seat.MAX_ROW-Seat.MIN_ROW);
-  //@ modifies \nothing;
+    /*@ requires row >= Seat.MIN_ROW && row <= Seat.MAX_ROW;
+        ensures \result >= 0 && \result <= (Seat.MAX_ROW-Seat.MIN_ROW);
+        modifies \nothing;
+    @*/
     private static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
 
-    //@ requires number >= Seat.MIN_NUMBER && number <= Seat.MAX_NUMBER;
-    //@ ensures \result >= 0 && \result <= (Seat.MAX_NUMBER-Seat.MIN_NUMBER);
-  //@ modifies \nothing;
+    /*@ requires number >= Seat.MIN_NUMBER && number <= Seat.MAX_NUMBER;
+        ensures \result >= 0 && \result <= (Seat.MAX_NUMBER-Seat.MIN_NUMBER);
+        modifies \nothing;
+    @*/
     private static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }
     
-    //@ requires index >= 0 && index <= (Seat.MAX_ROW-Seat.MIN_ROW);
-    //@ ensures \result >= Seat.MIN_ROW && \result <= Seat.MAX_ROW;
-    //@ modifies \nothing;
+    /*@ requires index >= 0 && index <= (Seat.MAX_ROW-Seat.MIN_ROW);
+        ensures \result >= Seat.MIN_ROW && \result <= Seat.MAX_ROW;
+        modifies \nothing;
+    @*/
     private static char indexToRow(int index) {
         return (char)(Seat.MIN_ROW + index);
     }
 
-    //@ requires index >= 0 && index <= (Seat.MAX_NUMBER-Seat.MIN_NUMBER);
-    //@ ensures \result >= Seat.MIN_NUMBER && \result <= Seat.MAX_NUMBER;
-    //@ modifies \nothing;
+    /*@ requires index >= 0 && index <= (Seat.MAX_NUMBER-Seat.MIN_NUMBER);
+        ensures \result >= Seat.MIN_NUMBER && \result <= Seat.MAX_NUMBER;
+        modifies \nothing;
+    @*/
     private static int indexToNumber(int index) {
         return index + Seat.MIN_NUMBER;
     }

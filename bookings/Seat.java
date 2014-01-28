@@ -22,13 +22,13 @@ public class Seat {
     }
 
     //@ ensures \result >= MIN_ROW && \result <= MAX_ROW;
-  //@ modifies \nothing;
+    //@ modifies \nothing;
     public final char getRow() {
         return row;
     }
 
     //@ ensures \result >= MIN_NUMBER && \result <= MAX_NUMBER;
-  //@ modifies \nothing;
+    //@ modifies \nothing;
     public final int getNumber() {
         return number;
     }
