@@ -11,7 +11,7 @@ public class SeatReservationManager {
 	
     private final Customer[][] seatReservations;
     
-    public /*@ helper @*/ SeatReservationManager() {
+    public SeatReservationManager() {
         seatReservations = new Customer[rowToIndex(Seat.MAX_ROW) + 1]
                                        [numberToIndex(Seat.MAX_NUMBER) + 1];
     }
@@ -96,7 +96,7 @@ public class SeatReservationManager {
         ensures \result >= 0 && \result <= (Seat.MAX_ROW-Seat.MIN_ROW);
         modifies \nothing;
     @*/
-    private static int rowToIndex(char row) {
+    private /*@ helper @*/ static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
 
@@ -104,7 +104,7 @@ public class SeatReservationManager {
         ensures \result >= 0 && \result <= (Seat.MAX_NUMBER-Seat.MIN_NUMBER);
         modifies \nothing;
     @*/
-    private static int numberToIndex(int number) {
+    private /*@ helper @*/ static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }
     
