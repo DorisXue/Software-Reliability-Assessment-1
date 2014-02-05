@@ -14,21 +14,23 @@ public class Seat {
     private final int number;
     
     //@ requires row >= MIN_ROW && row <= MAX_ROW && number >= MIN_NUMBER && number <= MAX_NUMBER;
-    //@ modifies this.row;
-    //@ modifies this.number;
     public Seat(char row, int number) {
         this.row = row;
         this.number = number;
     }
 
     //@ ensures \result >= MIN_ROW && \result <= MAX_ROW;
-    //@ modifies \nothing;
+    //@ ensures \result == \old(this.row);
+    //@ ensures \result == this.row;
+    //@ ensures this.number == \old(this.number);
     public final char getRow() {
         return row;
     }
 
     //@ ensures \result >= MIN_NUMBER && \result <= MAX_NUMBER;
-    //@ modifies \nothing;
+    //@ ensures \result == \old(this.number);
+    //@ ensures \result == this.number;
+    //@ ensures this.row == \old(this.row);
     public final int getNumber() {
         return number;
     }

@@ -11,13 +11,15 @@ public class SeatReservationManager {
 	
     private final Customer[][] seatReservations;
     
+    // the size is unknown before declaring a new array, so it will not be affected by 'index too big' warning
     public SeatReservationManager() {
         seatReservations = new Customer[rowToIndex(Seat.MAX_ROW) + 1]
                                        [numberToIndex(Seat.MAX_NUMBER) + 1];
     }
 
     /*@ requires s != null;
-        modifies \nothing;
+        ensures this.seatReservations == \old(this.seatReservations);
+        ensures (\forall int x; 0<=x && x<seatReservations.length ==> this.seatReservations[x] == \old(this.seatReservations)[x]);
     @*/
     public boolean isReserved(Seat s) {
         return seatReservations[rowToIndex(s.getRow())]
@@ -63,6 +65,8 @@ public class SeatReservationManager {
     
     /*@ ghost String toStringResult; in privateState;
         represents theString <- toStringResult;
+        ensures this.seatReservations == \old(this.seatReservations);
+        ensures (\forall int x; 0<=x && x<seatReservations.length ==> this.seatReservations[x] == \old(this.seatReservations)[x]);
     @*/
     public String toString() {
         String result = " ";
@@ -96,6 +100,7 @@ public class SeatReservationManager {
         ensures \result >= 0 && \result <= (Seat.MAX_ROW-Seat.MIN_ROW);
         modifies \nothing;
     @*/
+    // the situation(precondition) to invoke 'rowtoindex' is not clear; may be invoked by different methods
     private /*@ helper @*/ static int rowToIndex(char row) {
         return row - Seat.MIN_ROW;
     }
@@ -104,6 +109,7 @@ public class SeatReservationManager {
         ensures \result >= 0 && \result <= (Seat.MAX_NUMBER-Seat.MIN_NUMBER);
         modifies \nothing;
     @*/
+    // the situation(postcondition) to invoke 'rowtoindex' is not clear; may be invoked by different methods
     private /*@ helper @*/ static int numberToIndex(int number) {
         return number - Seat.MIN_NUMBER;
     }
